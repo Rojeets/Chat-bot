@@ -20,31 +20,31 @@ cd yourproject
 2. Set Up a Virtual Environment:
 
 Copy code
-python -m venv venv
+'python -m venv venv'
 # on linux 
-source venv/bin/activate  
+'source venv/bin/activate ' 
 # On Windows use 
-`venv\Scripts\activate`
+'venv\Scripts\activate'
 
 
 3. Install Dependencies:
 
 Copy code
-pip install -r requirements.txt
+'pip install -r requirements.txt'
 
 
 4. Set Up Environment Variables:
 
 Ensure you have the Google API key set up in your environment. You can set the environment variable directly or include it in a .env file.
 Copy code
-export GOOGLE_API_KEY='your-google-api-key-here'
+" export GOOGLE_API_KEY='your-google-api-key-here' "
 
 
 5. Run the Application:
 
 Copy code
-python app.py
-The application will be running at http://127.0.0.1:5000/.
+'python app.py'
+** The application will be running at http://127.0.0.1:5000/. **
 
 ## Usage
 1. Navigate to the Web Interface:
