@@ -13,8 +13,8 @@ Follow these steps to set up the project locally:
 1. Clone the Repository:
 
 Copy code
-git clone https://github.com/rojee/yourproject.git
-cd yourproject
+' git clone https://github.com/Rojeets/Chat-bot.git '
+' cd Chat-bot '
 
 
 2. Set Up a Virtual Environment:
