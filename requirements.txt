@@ -1,0 +1,2 @@
+Flask==2.2.3
+google-generativeai==1.0.0
