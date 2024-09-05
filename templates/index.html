@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interface</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+    <div class="navbar">
+        <span class="nav-title">Gem-Bot</span>
+    </div>
+ 
+
+    <div class="chat-container">
+        <h1>Chat with Bot</h1>
+        <div class="input_send">
+            <input type="text" id="prompt" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const prompt = document.getElementById('prompt').value;
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = '';  // Clear previous responses
+
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt: prompt })
+            });
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+            let receivedLength = 0; // Received that many bytes at the moment
+            while(true) {
+                const {done, value} = await reader.read();
+                if (done) {
+                    break;
+                }
+                receivedLength += value.length;
+                const chunk = decoder.decode(value, {stream: true});
+                responseDiv.innerHTML += chunk;
+            }
+        }
+
+
+    </script>
+</body>
+</html>
