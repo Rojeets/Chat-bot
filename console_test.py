@@ -4,7 +4,9 @@ import google.generativeai as genai
 import os
 
 #Initialize the Gemini API with your API Key 
-GOOGLE_API_KEY='AIzaSyBi3fQCz0JRVvgpH0BOSOZS702nml5zUbE'
+GOOGLE_API_KEY=os.getenv('GOOGLE_API_KEY')
+if not GOOGLE_API_KEY:
+    raise ValueError("No API key found. Please set the GOOGLE_API_KEY environment variable.")
 genai.configure(api_key=GOOGLE_API_KEY)
 
 #list models of Gemini

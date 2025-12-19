@@ -25,6 +25,15 @@
         <div class="response" id="response"></div>
     </div>
 
+    <div class="chat-container" style="margin-top: 24px;">
+        <h1>Media Sensitivity Check</h1>
+        <div class="input_send">
+            <input type="file" id="mediaFile" accept="image/png,image/jpeg,image/webp,image/gif">
+            <button onclick="uploadMedia()">Analyze</button>
+        </div>
+        <pre class="response" id="mediaResult" style="white-space: pre-wrap;"></pre>
+    </div>
+
     <script>
         async function sendMessage() {
             const prompt = document.getElementById('prompt').value;
@@ -53,6 +62,30 @@
             }
         }
 
+
+        async function uploadMedia() {
+            const fileInput = document.getElementById('mediaFile');
+            const resultEl = document.getElementById('mediaResult');
+            resultEl.textContent = '';
+            if (!fileInput.files || fileInput.files.length === 0) {
+                resultEl.textContent = 'Please choose an image file.';
+                return;
+            }
+
+            const form = new FormData();
+            form.append('file', fileInput.files[0]);
+
+            try {
+                const resp = await fetch('/moderate-media', {
+                    method: 'POST',
+                    body: form
+                });
+                const data = await resp.json();
+                resultEl.textContent = JSON.stringify(data, null, 2);
+            } catch (e) {
+                resultEl.textContent = 'Upload failed: ' + (e?.message || e);
+            }
+        }
 
     </script>
 </body>
